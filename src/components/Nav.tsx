@@ -49,20 +49,20 @@ export default function Nav() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${overHero ? "py-5 text-white" : "py-3 text-ink bg-white/85 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,.06)]"}`}
       >
-        <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex items-center justify-between gap-6">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-5 md:px-10 flex items-center justify-between gap-3 sm:gap-6">
           <Link
             to="/"
             onClick={go("/")}
-            className="flex items-center gap-3 shrink-0"
+            className="flex items-center gap-2 sm:gap-3 min-w-0 lg:shrink-0"
             aria-label="Bosco Esquire home"
           >
-            <img src={asset("img/logo.png")} alt="" className="w-11 h-11" />
-            <span className="leading-none">
-              <span className="block font-display font-extrabold text-xl lg:text-lg xl:text-xl tracking-tight">
+            <img src={asset("img/logo.png")} alt="" className="w-9 h-9 sm:w-11 sm:h-11 shrink-0" />
+            <span className="leading-none min-w-0">
+              <span className="block font-display font-extrabold text-[15px] sm:text-xl lg:text-lg xl:text-xl tracking-tight truncate">
                 BOSCO ESQUIRE
               </span>
               <span
-                className={`block lg:hidden xl:block text-[10px] tracking-[.3em] uppercase mt-1 ${overHero ? "text-amber" : "text-honey"}`}
+                className={`block lg:hidden xl:block text-[8px] tracking-[.14em] sm:text-[10px] sm:tracking-[.3em] uppercase mt-1 truncate ${overHero ? "text-amber" : "text-honey"}`}
               >
                 Organically & Bespokely You
               </span>
@@ -90,10 +90,10 @@ export default function Nav() {
               </NavLink>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button
               onClick={() => setOpen(true)}
-              className="relative w-12 h-12 rounded-full grid place-items-center bg-amber text-cocoa hover:scale-105 transition"
+              className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full grid place-items-center bg-amber text-cocoa hover:scale-105 transition"
               aria-label={`Cart, ${count} items`}
             >
               <ShoppingBag size={20} strokeWidth={2.2} />
@@ -105,7 +105,7 @@ export default function Nav() {
             </button>
             <button
               onClick={() => setMenu(true)}
-              className="lg:hidden w-12 h-12 grid place-items-center"
+              className="lg:hidden w-10 h-10 sm:w-12 sm:h-12 grid place-items-center"
               aria-label="Open menu"
             >
               <Menu />
