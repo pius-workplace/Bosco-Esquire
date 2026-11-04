@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Short phones (e.g. iPhone SE): less room above the hero headline */
+@custom-variant short-phone (@media (max-width: 767px) and (max-height: 720px));
+
+/* Brand colours taken from the current boscoesquire.com */
+@theme {
+  --color-amber: #FFA500;     /* primary brand orange */
+  --color-honey: #C87B25;     /* honey amber */
+  --color-gold: #E0951C;      /* warm gold */
+  --color-cocoa: #2B2416;     /* deep brown */
+  --color-bark: #3A2F28;      /* brown */
+  --color-ink: #1A1A1A;       /* near-black */
+  --color-cream: #FFF8EC;     /* warm white */
+  --color-sand: #F4E9D6;
+  --font-display: "Bricolage Grotesque", "Open Sans", system-ui, sans-serif;
+  --font-sans: "Open Sans", system-ui, sans-serif;
+}
+
+html { -webkit-font-smoothing: antialiased; }
+body { background: #fff; color: var(--color-ink); font-family: var(--font-sans); overflow-x: hidden; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+.font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+.display-xl { font-family: var(--font-display); font-weight: 800; line-height: .88; letter-spacing: -0.035em; font-size: clamp(56px, 12.5vw, 220px); }
+.display-l { font-family: var(--font-display); font-weight: 800; line-height: .95; letter-spacing: -0.03em; font-size: clamp(40px, 6.4vw, 104px); }
+.display-m { font-family: var(--font-display); font-weight: 800; line-height: 1; letter-spacing: -0.025em; font-size: clamp(30px, 3.8vw, 58px); }
+.eyebrow { font-size: 12px; letter-spacing: .28em; text-transform: uppercase; font-weight: 700; color: var(--color-honey); }
+
+.btn { display: inline-flex; align-items: center; gap: .6rem; border-radius: 999px; padding: 1rem 1.6rem; font-weight: 700; font-size: 14px; letter-spacing: .02em; transition: transform .3s, background .3s, color .3s, box-shadow .3s; }
+.btn:hover { transform: translateY(-2px); }
+.btn-amber { background: var(--color-amber); color: var(--color-cocoa); box-shadow: 0 10px 30px -10px rgba(255,165,0,.6); }
+.btn-amber:hover { background: #ffb52e; }
+.btn-dark { background: var(--color-cocoa); color: #fff; }
+.btn-ghost { border: 2px solid currentColor; }
+
+.mask-line { display: inline-block; overflow: hidden; padding-bottom: .08em; vertical-align: top; }
+.mask-line > span { display: inline-block; will-change: transform; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+.grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .08; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+.honeycomb-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 32L0 82V66l28-16 28 16v16L28 98z' fill='none' stroke='%23C87B25' stroke-opacity='.12' stroke-width='1.2'/%3E%3C/svg%3E"); }
+
+@keyframes floaty { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-14px) rotate(calc(var(--r,0deg) + 2deg)); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 32s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
