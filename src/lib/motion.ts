@@ -3,6 +3,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
+// Phones resize the viewport as the address bar shows/hides while scrolling; recalculating
+// every pinned section on each of those resizes makes them jump or stall.
+ScrollTrigger.config({ ignoreMobileResize: true })
 export { gsap, ScrollTrigger }
 
 export const reduceMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches

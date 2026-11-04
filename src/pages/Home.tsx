@@ -776,10 +776,13 @@ const story = [
     text: "And now delivered to your door.",
   },
 ];
+// Pinned horizontal scroll on every screen size (phones included); with reduced
+// motion the cards simply stack vertically.
 function HiveToHand() {
   const ref = useRef<HTMLElement>(null);
+  const [motion] = useState(() => !reduceMotion());
   useLayoutEffect(() => {
-    if (reduceMotion()) return;
+    if (!motion) return;
     const ctx = gsap.context(() => {
       const track = ref.current!.querySelector<HTMLElement>(".h-track")!;
       const dist = () => track.scrollWidth - window.innerWidth;
@@ -795,7 +798,7 @@ function HiveToHand() {
           invalidateOnRefresh: true,
           onUpdate: (s) => {
             gsap.set(".h-bee", {
-              x: s.progress * (window.innerWidth - 140),
+              x: s.progress * (window.innerWidth - (window.innerWidth < 1024 ? 80 : 140)),
               y: Math.sin(s.progress * 16) * 30,
               rotate: Math.cos(s.progress * 16) * 14,
             });
@@ -822,19 +825,25 @@ function HiveToHand() {
       });
     }, ref);
     return () => ctx.revert();
-  }, []);
+  }, [motion]);
   return (
     <section
       ref={ref}
-      className="relative bg-white overflow-hidden lg:h-screen"
+      className={`relative bg-white overflow-hidden ${motion ? "h-[100svh] min-h-[560px] lg:h-screen" : "lg:h-screen"}`}
     >
-      <img
-        src={asset("img/cut/bee.webp")}
-        alt=""
-        className="h-bee absolute z-20 top-[9vh] left-4 w-24 pointer-events-none hidden lg:block"
-      />
-      <div className="h-track flex flex-col lg:flex-row lg:h-full lg:w-max items-stretch gap-6 px-5 md:px-10 py-24 lg:py-[14vh]">
-        <div className="lg:w-[34vw] shrink-0 flex flex-col justify-center pr-6">
+      {motion && (
+        <img
+          src={asset("img/cut/bee.webp")}
+          alt=""
+          className="h-bee absolute z-20 top-[8vh] lg:top-[9vh] left-4 w-14 lg:w-24 pointer-events-none"
+        />
+      )}
+      <div
+        className={`h-track flex items-stretch gap-4 md:gap-6 px-5 md:px-10 ${motion ? "flex-row h-full w-max pt-[16vh] pb-[12vh] lg:py-[14vh]" : "flex-col lg:flex-row lg:h-full lg:w-max py-24 lg:py-[14vh]"}`}
+      >
+        <div
+          className={`shrink-0 flex flex-col justify-center pr-6 lg:w-[34vw] ${motion ? "w-[84vw] sm:w-[60vw]" : ""}`}
+        >
           <div className="eyebrow">Our roots</div>
           <h2 className="display-l mt-3">
             From hive
@@ -852,9 +861,11 @@ function HiveToHand() {
         {story.map((s) => (
           <figure
             key={s.title}
-            className="h-card shrink-0 lg:w-[40vw] lg:max-w-[620px] flex flex-col"
+            className={`h-card shrink-0 lg:w-[40vw] lg:max-w-[620px] flex flex-col ${motion ? "w-[78vw] sm:w-[60vw]" : ""}`}
           >
-            <div className="relative h-[52vh] lg:h-auto lg:flex-1 overflow-hidden rounded-[28px]">
+            <div
+              className={`relative overflow-hidden rounded-[28px] lg:h-auto lg:flex-1 ${motion ? "flex-1 min-h-0" : "h-[52vh]"}`}
+            >
               <img
                 src={asset(s.img)}
                 alt={s.title}
@@ -863,18 +874,20 @@ function HiveToHand() {
               />
             </div>
             <figcaption className="pt-5">
-              <div className="font-display font-extrabold text-3xl">
+              <div className="font-display font-extrabold text-2xl md:text-3xl leading-tight">
                 {s.title}
               </div>
               <div className="text-bark mt-1">{s.text}</div>
             </figcaption>
           </figure>
         ))}
-        <div className="shrink-0 w-[10vw] hidden lg:block" />
+        {motion && <div className="shrink-0 w-[4vw] lg:w-[10vw]" />}
       </div>
-      <div className="absolute left-10 right-10 bottom-8 h-1 bg-cocoa/10 rounded hidden lg:block">
-        <div className="h-bar h-full bg-amber origin-left scale-x-0 rounded" />
-      </div>
+      {motion && (
+        <div className="absolute left-5 right-5 md:left-10 md:right-10 bottom-[5vh] lg:bottom-8 h-1 bg-cocoa/10 rounded">
+          <div className="h-bar h-full bg-amber origin-left scale-x-0 rounded" />
+        </div>
+      )}
     </section>
   );
 }
