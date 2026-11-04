@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Bosco Esquire — Website (React prototype)
 
 A full storefront prototype for boscoesquire.com, built by Piusdenis Tech.
@@ -53,3 +54,7 @@ npm run typecheck  # TypeScript check
 ## Next phase (backend)
 
 Orders, stock, M-Pesa Daraja (STK Push + callback), admin dashboard, email/WhatsApp notifications. For production SEO, move to Next.js or switch to `BrowserRouter` with server rewrites.
+=======
+# Bosco-Esquire
+Selling organic Products
+>>>>>>> d50f078435284b2abb4f187ad4d52731b60b22eb
